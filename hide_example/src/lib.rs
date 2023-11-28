@@ -1,3 +1,7 @@
+pub fn gdext_rust_init() {
+    println!("gdext_rust_init");
+}
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
