@@ -1,25 +1,30 @@
-pub fn gdext_rust_init() {
-    println!("gdext_rust_init");
+use godot::prelude::*;
+
+struct HideExampleExtension;
+
+#[gdextension]
+unsafe impl ExtensionLibrary for HideExampleExtension {}
+
+use godot::engine::Node2D;
+
+#[derive(GodotClass)]
+#[class(base=Node2D)]
+struct HideExample {
+
+    #[base]
+    node2d: Base<Node2D>
 }
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+use godot::engine::Node2DVirtual;
 
-pub fn sub(left: usize, right: usize) -> usize {
-    left - right
-}
+#[godot_api]
+impl Node2DVirtual for HideExample {
+    fn init(node2d: Base<Node2D>) -> Self {
+        godot_print!("HideExampleNode is initialized!");
+        Self { node2d }
+    }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-
-        let result = sub(2, 2);
-        assert_eq!(result, 0);
+    fn process(&mut self, delta: f64) {
+        godot_print!("HideExampleNode is processing!");
     }
 }
