@@ -19,15 +19,15 @@ impl INode2D for HideExample {
         Self { node2d }
     }
 
-    fn process(&mut self, delta: f64) {
+    //fn process(&mut self, delta: f64) {
         //godot_print!("HideExampleNode is processing!");
-    }
+    //}
 }
 
 #[godot_api]
 impl HideExample {
     #[func]
-    fn hello_world(&mut self, name:GodotString) {
+    fn hello_world(&mut self, name:GString) {
         godot_print!("Hello world! {name}");
         self.node2d.emit_signal("hello_world_signal".into(), &[]);
     }
