@@ -52,6 +52,14 @@ impl HideExample {
         return contents;        
     }
 
+    // save file like a text
+    #[func]
+    fn save_file(&mut self, path: GString, content: GString) {
+        godot_print!("Saving file {}", path);
+        let path_str = path.to_string(); // Convert GString to String
+        let path = Path::new(&path_str);
+        fs::write(path, content).expect("Something went wrong writing the file");
+    }
 
     #[func]
     fn fibonacci(&mut self, n: i64) -> i64 {
