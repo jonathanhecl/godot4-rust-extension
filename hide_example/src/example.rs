@@ -58,7 +58,8 @@ impl HideExample {
         godot_print!("Saving file {}", path);
         let path_str = path.to_string(); // Convert GString to String
         let path = Path::new(&path_str);
-        fs::write(path, content).expect("Something went wrong writing the file");
+        let content_ref = content.to_string(); // Convert GString to String
+        fs::write(path, content_ref).expect("Something went wrong writing the file");
     }
 
     #[func]
