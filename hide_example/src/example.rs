@@ -30,16 +30,17 @@ impl INode2D for HideExample {
 
 #[godot_api]
 impl HideExample {
+
+    // register the class to Godot
     #[func]
     fn hello_world(&mut self, name:GString) {
         godot_print!("Hello world! {name}");
         self.node2d.emit_signal("hello_world_signal".into(), &[]);
     }
 
-    #[func]
-    fn load_map_data(&mut self, path: GString) {
-        godot_print!("Loading map data from {path}");
-    }
+    // emit signal
+    #[signal]
+    fn hello_world_signal();
 
     // open file like a text and return the content
     #[func]
@@ -62,6 +63,7 @@ impl HideExample {
         fs::write(path, content_ref).expect("Something went wrong writing the file");
     }
 
+    // fibonacci function
     #[func]
     fn fibonacci(&mut self, n: i64) -> i64 {
         if n <= 1 {
@@ -70,6 +72,26 @@ impl HideExample {
         return self.fibonacci(n - 2) + self.fibonacci(n - 1);
     }
 
-    #[signal]
-    fn hello_world_signal();
+    // prime number function
+    #[func]
+    fn is_prime(&mut self, n: i64) -> bool {
+        if n <= 1 {
+            return false;
+        }
+        if n <= 3 {
+            return true;
+        }
+        if n % 2 == 0 || n % 3 == 0 {
+            return false;
+        }
+        let mut i = 5;
+        while i * i <= n {
+            if n % i == 0 || n % (i + 2) == 0 {
+                return false;
+            }
+            i = i + 6;
+        }
+        return true;
+    }
+
 }
